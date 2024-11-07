@@ -11,7 +11,6 @@ public class ProductInstantiater : MonoBehaviour
     public void NewShop(ProductList productList)
     {
         DestroyProducts();
-
         Vector3 startPos = new Vector3(-3.5f, 2, 0.65f);
         Vector3 offSet = new Vector3(3.5f, 0, 0);
         InstantiateProducts(startPos, offSet, productList.products);
@@ -39,5 +38,12 @@ public class ProductInstantiater : MonoBehaviour
     public List<ProductDisplay> GetListOfProducts()
     {
         return instantiatedProducts;
+    }
+    public void UpdateProducts(List<ProductData> newData)
+    {
+        for (int i = 0; i < instantiatedProducts.Count; i++)
+        {
+            instantiatedProducts[i].SetProduct(newData[i]);
+        }
     }
 }

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    bool frozen = false;
     float speed = 1.33f;
     private void Update()
     {
+        if (frozen)
+            return;
+
         Movement();
     }
     void Movement()
@@ -17,5 +21,13 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         transform.Translate(movement * speed * Time.deltaTime, 0, 0);
+    }
+    public void Freeze() //"UpdateShopButton" button in Hierarchy
+    {
+        frozen = true;
+    }
+    public void UnFreeze() //"Back" button in Hierarchy
+    {
+        frozen = false;
     }
 }

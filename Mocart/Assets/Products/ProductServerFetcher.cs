@@ -27,7 +27,6 @@ public class ProductServerFetcher : MonoBehaviour
             {
                 string response = request.downloadHandler.text;
                 Debug.Log("Response: " + response);
-
                 ProductList productList = JsonUtility.FromJson<ProductList>(response);
                 productInstantiater.NewShop(productList);
             }

@@ -14,7 +14,7 @@ public class ProductDisplay : MonoBehaviour
     {
         myData = product;
         nameText.text = product.name;
-        priceText.text = '$' + product.price.ToString();
+        priceText.text = '$' + product.price.ToString("F2");
         descText.text = product.description;
     }
 }

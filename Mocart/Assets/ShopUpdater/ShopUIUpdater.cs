@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShopUIUpdater : MonoBehaviour
 {
@@ -14,12 +15,7 @@ public class ShopUIUpdater : MonoBehaviour
 
     List<ShopProductCard> productCards = new List<ShopProductCard>();
 
-    private void OnEnable()
-    {
-        InstantiateNewCards();
-    }
-
-    void InstantiateNewCards()
+    public void InstantiateNewCards() //"UpdateShopButton" button in Hierarchy
     {
         List<ProductDisplay> products = productInstantiater.GetListOfProducts();
         foreach (ProductDisplay product in products)
@@ -29,7 +25,10 @@ public class ShopUIUpdater : MonoBehaviour
             productCards.Add(newProductCard);
         }
     }
-
+    public void BackButton() //"Back" button in Hierarchy
+    {
+        DestroyOldCards();
+    }
     void DestroyOldCards()
     {
         foreach (var item in productCards)
@@ -38,32 +37,47 @@ public class ShopUIUpdater : MonoBehaviour
         }
         productCards.Clear();
     }
-    public void AcceptChangesButton() //"Update" button in Hierarchy
+    public void AcceptChangesButton() //"SaveChanges" button in Hierarchy
     {
-        bool foundErrors = false;
+        bool foundErrors = VerifyFieldInputs();
+        if (!foundErrors)
+        {
+            ReadCardValues(out List<ProductData> newProductValues);
+            productInstantiater.UpdateProducts(newProductValues);
+        }
+        EnableConfirmationPanel(foundErrors);
+    }
+    bool VerifyFieldInputs()
+    {
         foreach (var card in productCards)
         {
-            if ( !(card.VerifyDescription() & card.VerifyName() & card.VerifyPrice()) ) //using & instead of && for the method side effects to go through
-                foundErrors = true;
+            if (!(card.VerifyDescription() & card.VerifyName() & card.VerifyPrice())) //using & instead of && for the method side effects to go through
+                return true;
         }
-
+        return false;
+    }
+    void EnableConfirmationPanel(bool foundErrors)
+    {
         if (foundErrors)
         {
-            postSaveChangesText.text = "Errors Found! Hover over the exclamation marks to view them.";
+            postSaveChangesText.text = "Errors Found!\nHover over the exclamation marks to view them.";
             postSaveChangesText.color = Color.red;
         }
         else
         {
             postSaveChangesText.text = "Changes Saved Succesfuly!";
             postSaveChangesText.color = Color.green;
-
-            //TODO: update the products.
         }
 
         postSaveChangesPanel.SetActive(true);
     }
-    public void BackButton() //"Back" button in Hierarchy
+    void ReadCardValues(out List<ProductData> newProductValues)
     {
-        DestroyOldCards();
+        newProductValues = new List<ProductData>();
+        foreach (var card in productCards)
+        {
+            ProductData newData = new ProductData(card.newName.text, card.newDescription.text, double.Parse(card.newPrice.text));
+            newProductValues.Add(newData);
+        }
     }
 }
