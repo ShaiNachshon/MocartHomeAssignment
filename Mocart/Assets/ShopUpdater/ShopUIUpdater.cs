@@ -49,12 +49,15 @@ public class ShopUIUpdater : MonoBehaviour
     }
     bool VerifyFieldInputs()
     {
+        bool foundErrors = false;
         foreach (var card in productCards)
         {
-            if (!(card.VerifyDescription() & card.VerifyName() & card.VerifyPrice())) //using & instead of && for the method side effects to go through
-                return true;
+            if (card.VerifyDescription() & card.VerifyName() & card.VerifyPrice() && !foundErrors) //using & instead of && for the method side effects to go through
+                continue;
+
+            foundErrors = true;
         }
-        return false;
+        return foundErrors;
     }
     void EnableConfirmationPanel(bool foundErrors)
     {
@@ -76,7 +79,8 @@ public class ShopUIUpdater : MonoBehaviour
         newProductValues = new List<ProductData>();
         foreach (var card in productCards)
         {
-            ProductData newData = new ProductData(card.newName.text, card.newDescription.text, double.Parse(card.newPrice.text));
+            double.TryParse(card.newPrice.text, out double result);
+            ProductData newData = new ProductData(card.newName.text, card.newDescription.text, result);
             newProductValues.Add(newData);
         }
     }

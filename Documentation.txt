@@ -1,6 +1,6 @@
 Instructions:
 GitHub Repository https://github.com/ShaiNachshon/MocartHomeAssignment
-Play the Project 
+Play the Project https://play.unity.com/en/games/ef02483a-0a69-4370-9a7b-7653e49156a2/mocart-home-assignment
 
 Assets Used: 
 Exclamation mark sprite: https://www.flaticon.com/free-icon/exclamation-mark_8631570
