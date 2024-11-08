@@ -1,6 +1,6 @@
 # Instructions:
 GitHub Repository: [Repository](https://github.com/ShaiNachshon/MocartHomeAssignment)  
-Play the Project: [Game Link](https://play.unity.com/en/games/ef02483a-0a69-4370-9a7b-7653e49156a2/mocart-home-assignment)
+Play the Project: [Project Link](https://play.unity.com/en/games/ef02483a-0a69-4370-9a7b-7653e49156a2/mocart-home-assignment)
 
 ## Assets Used:
 [Error Exclamation Mark](https://www.flaticon.com/free-icon/exclamation-mark_8631570)
